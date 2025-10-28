@@ -1,0 +1,43 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile SJCET Event Management",
+            "type": "shell",
+            "command": "javac",
+            "args": [
+                "-cp",
+                "src;lib/mysql-connector-j-8.2.0.jar",
+                "-d",
+                "bin",
+                "src/com/collegeeventapp/**/*.java"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": "$javac"
+        },
+        {
+            "label": "Run SJCET Event Management",
+            "type": "shell",
+            "command": "java",
+            "args": [
+                "-cp",
+                "bin;lib/mysql-connector-j-8.2.0.jar",
+                "com.collegeeventapp.AppLauncher"
+            ],
+            "group": "test",
+            "dependsOn": "Compile SJCET Event Management",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        }
+    ]
+}
