@@ -2,8 +2,6 @@ package com.collegeeventapp.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import com.collegeeventapp.controller.LoginController;
 import com.collegeeventapp.model.User;
 import com.collegeeventapp.dao.UserDAO;
@@ -132,8 +130,8 @@ public class LoginFrame extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
 
         JTextField nameField = new JTextField(20);
-        JTextField emailField = new JTextField(20);
-        JPasswordField passwordField = new JPasswordField(20);
+        JTextField newEmailField = new JTextField(20);
+        JPasswordField newPasswordField = new JPasswordField(20);
         JPasswordField confirmPasswordField = new JPasswordField(20);
         JComboBox<String> roleCombo = new JComboBox<>(new String[]{"student", "admin"});
 
@@ -176,8 +174,8 @@ public class LoginFrame extends JFrame {
         
         createBtn.addActionListener(e -> {
             String name = nameField.getText().trim();
-            String email = emailField.getText().trim();
-            String password = new String(passwordField.getPassword());
+            String email = newEmailField.getText().trim();
+            String password = new String(newPasswordField.getPassword());
             String confirmPassword = new String(confirmPasswordField.getPassword());
             String role = (String) roleCombo.getSelectedItem();
 

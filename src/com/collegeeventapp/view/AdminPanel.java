@@ -60,7 +60,6 @@ public class AdminPanel extends JPanel {
         selectImageButton.addActionListener(e -> selectEventImage());
         imagePanel.add(selectImageButton);
         formPanel.add(imagePanel);
-
         formPanel.add(new JLabel("Description:"));
         descriptionArea = new JTextArea(3, 20);
         formPanel.add(new JScrollPane(descriptionArea));
@@ -82,7 +81,6 @@ public class AdminPanel extends JPanel {
         addButton.addActionListener(e -> addEvent());
         updateButton.addActionListener(e -> updateEvent());
         deleteButton.addActionListener(e -> deleteEvent());
-        
         // Add image preview panel
         JPanel previewPanel = new JPanel(new BorderLayout());
         previewPanel.setBorder(BorderFactory.createTitledBorder("Image Preview"));
@@ -114,7 +112,7 @@ public class AdminPanel extends JPanel {
             String category = (String) categoryCombo.getSelectedItem();
             int capacity = Integer.parseInt(capacityField.getText());
 
-            // Create enhanced event (for now, basic event creation)
+            // TODO: Update EventController to accept full Event object
             if (eventController.createEvent(name, date, time, desc)) {
                 JOptionPane.showMessageDialog(this, "Event Added Successfully!\nLocation: " + location + "\nCategory: " + category + "\nCapacity: " + capacity);
                 eventListPanel.refreshEventList();
@@ -126,6 +124,7 @@ public class AdminPanel extends JPanel {
     }
     
     private void clearFields() {
+        idField.setText("");
         nameField.setText("");
         dateField.setText("");
         timeField.setText("");
@@ -145,11 +144,22 @@ public class AdminPanel extends JPanel {
             LocalDate date = LocalDate.parse(dateField.getText());
             LocalTime time = LocalTime.parse(timeField.getText());
             String desc = descriptionArea.getText();
+            String location = locationField.getText();
+            String category = (String) categoryCombo.getSelectedItem();
+            int capacity = Integer.parseInt(capacityField.getText());
+
+            // TODO: Update Event class constructor and EventController to handle these fields
             Event event = new Event(id, name, date, time, desc);
+            // TODO: Set additional fields once Event class is updated
+            // event.setLocation(location);
+            // event.setCategory(category);
+            // event.setCapacity(capacity);
+            // event.setImagePath(selectedImagePath);
 
             if (eventController.updateEvent(event)) {
                 JOptionPane.showMessageDialog(this, "Event Updated!");
                 eventListPanel.refreshEventList();
+                clearFields();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
@@ -162,6 +172,7 @@ public class AdminPanel extends JPanel {
             if (eventController.deleteEvent(id)) {
                 JOptionPane.showMessageDialog(this, "Event Deleted!");
                 eventListPanel.refreshEventList();
+                clearFields();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
